@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_customer', function (Blueprint $table) {
+        Schema::create('data_pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->tinyInteger('rt');
-            $table->tinyInteger('rw');
-            $table->string('no_telp');
-            $table->string('paket');
+            $table->foreignId('id_customer')->constrained('data_customer');
+            $table->foreignId('id_paket')->constrained('data_paket');
+            $table->date('tanggal_pembayaran');
+            $table->double('total_pembayaran');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_customer');
+        Schema::dropIfExists('data_pembayaran');
     }
 };
